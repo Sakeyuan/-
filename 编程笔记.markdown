@@ -1,0 +1,4 @@
+        1.C#的DataTable绑定的组件修改后，通过dt.GetChanges()，无法获取修改后的dt(dt为null)
+
+        场景： 当时是
+        ![场景图片](./阻抗测试图.png)
