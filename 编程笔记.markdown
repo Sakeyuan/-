@@ -46,3 +46,12 @@ private void BindControls()
     textBox6.DataBindings.Add("Text", bindingSource, "NValue");
     textBox7.DataBindings.Add("Text", bindingSource, "PZPhase");
 }
+```
+### 调用`GetChanges`前结束编辑
+```
+// 在调用 GetChanges() 之前，显式结束绑定控件的编辑状态
+bindingSource.EndEdit();
+DataTable dtChanges = dt.GetChanges();
+```
+### 场景图
+<p align="center"> <img src="./阻抗测试图.png" alt="示例图片" width="300"> </p>
