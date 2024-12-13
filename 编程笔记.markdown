@@ -1,4 +1,4 @@
-# DataTable 绑定组件修改后，通过 `GetChanges()` 无法获取修改后的 DataTable
+# 一、DataTable 绑定组件修改后，通过 `GetChanges()` 无法获取修改后的 DataTable
 
 ## 场景描述
 在使用 C# 开发的某个界面中，左侧的 `DataGridView` 绑定了一个 `DataTable` 的部分字段，右侧的 `TextBox` 也绑定了同一个 `DataTable` 的部分字段。这样，一个 `DataTable` 的行数据被分布绑定在左侧和右侧。
