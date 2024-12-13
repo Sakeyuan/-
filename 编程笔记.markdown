@@ -1,4 +1,37 @@
-        1.C#的DataTable绑定的组件修改后，通过dt.GetChanges()，无法获取修改后的dt(dt为null)
+#### 1.C#的DataTable绑定的组件修改后，通过dt.GetChanges()，无法获取修改后的dt(dt为null)
 
-        场景： 当时是
-        ![场景图片](./阻抗测试图.png)
+        场景： 当时是图片左边dataGridView5绑定了一个DataTable的一些字段，还有右边的TextBox也绑定了同一个DataTable的一些字段,相当于DataTable的一行包括了左边和右边
+        。然后随便修改了一个右边的TextBox，调用dt.GetChanges()的时候获取不到修改的dt，
+
+        问题原因：经过多次调试，有时候可以获取到，有时候不可以，是DataTable绑定的一行的编辑状态还没退出，所以获取不到修改的状态，
+            当聚焦点移开编辑行所在行才会自动结束编辑状态。不然得自己调用接口结束编辑状态。
+        
+        解决方案：
+            private BindingSource bindingSource = new BindingSource();
+            private void BindControls()
+            {
+                bindingSource.DataSource = dt;
+                dataGridView5.DataSource = bindingSource;
+
+                textBox1.DataBindings.Clear();
+                textBox2.DataBindings.Clear();
+                textBox3.DataBindings.Clear();
+                textBox4.DataBindings.Clear();
+                textBox5.DataBindings.Clear();
+                textBox6.DataBindings.Clear();
+                textBox7.DataBindings.Clear();
+
+                textBox1.DataBindings.Add("Text", bindingSource, "Zvalue");
+                textBox2.DataBindings.Add("Text", bindingSource, "Radius");
+                textBox3.DataBindings.Add("Text", bindingSource, "Phase");
+                textBox4.DataBindings.Add("Text", bindingSource, "NRadius");
+                textBox5.DataBindings.Add("Text", bindingSource, "NPhase");
+                textBox6.DataBindings.Add("Text", bindingSource, "NValue");
+                textBox7.DataBindings.Add("Text", bindingSource, "PZPhase");
+            }
+            // 在GetChanged前调用，结束编辑
+            bindingSource.EndEdit();    
+
+<p align="center">
+    <img src="./阻抗测试图.png" alt="示例图片" width="300">
+</p>
